@@ -18,11 +18,13 @@
     "url": "https://github.com/theghostbel/gdocs-table-downloader/issues"
   },
   "homepage": "https://github.com/theghostbel/gdocs-table-downloader#readme",
-  "devDependencies": {
+  "dependencies": {
     "google-spreadsheet": "2.0.9",
-    "jest": "25.1.0",
     "mkdirp": "1.0.3",
     "underscore": "1.9.2",
     "yargs": "15.1.0"
+  },
+  "devDependencies": {
+    "jest": "25.1.0"
   }
 }
