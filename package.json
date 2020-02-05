@@ -1,0 +1,28 @@
+{
+  "name": "gdocs-table-downloader",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "download-example": "node index.js --moduleType ESM --token 1oFig-VwfFKP3BLsW4ZgLiw5ftAfcD4jpcUwmXBdhCPU --target test/actual --sheets sheet_first,SECOND_SHEET",
+    "test": "npm run download-example && jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theghostbel/gdocs-table-downloader.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theghostbel/gdocs-table-downloader/issues"
+  },
+  "homepage": "https://github.com/theghostbel/gdocs-table-downloader#readme",
+  "devDependencies": {
+    "google-spreadsheet": "2.0.9",
+    "jest": "25.1.0",
+    "mkdirp": "1.0.3",
+    "underscore": "1.9.2",
+    "yargs": "15.1.0"
+  }
+}
