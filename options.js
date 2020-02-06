@@ -1,8 +1,9 @@
 const yargs = require('yargs')
 
 module.exports = yargs
-    .example('$0 --token XYZ --targetDir src/l10n/ --moduleType AMD --sheets first second' ,
-        'download sheets "first" and "second" from document with token "XYZ" using AMD module system')
+    .example('$0 --token XYZ --target src/l10n/{sheet}/{locale}.js --moduleType AMD --sheets first,second' ,
+        'download sheets "first" and "second" from document with token "XYZ" using AMD module system. ' +
+        'If your sheets "first" contained "en" translations, you should see your files in src/l10n/first/en.js')
     .option('token', {
       demandOption: true,
       describe:     'document token (can be found in url)',
@@ -15,7 +16,7 @@ module.exports = yargs
     })
     .option('target', {
       demandOption: true,
-      describe:     'path to directory to store downloaded table sheets',
+      describe:     'path where to store downloaded table sheets, use {locale} and {sheet} variables',
       type:         'string'
     })
     .option('moduleType', {

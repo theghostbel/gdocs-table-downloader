@@ -11,9 +11,9 @@ const { token, target, sheets, moduleType } = require('./options')
 
 const worksheetNames = sheets.split(',')
 worksheetNames
-    .forEach(worksheetName => createTranslationsPerLocale(token, worksheetName, path.join(target, worksheetName)))
+    .forEach(worksheetName => createTranslationsPerLocale(token, worksheetName, target))
 
-function createTranslationsPerLocale(spreadsheetToken, worksheetName, dirForTranslations) {
+function createTranslationsPerLocale(spreadsheetToken, worksheetName, target) {
   const sheet = new GoogleSpreadsheet(spreadsheetToken)
   const processCells = (err, cells) => {
     if (err) throw err
@@ -92,20 +92,35 @@ function createTranslationsPerLocale(spreadsheetToken, worksheetName, dirForTran
       }, {})
     })
 
-    mkdirp.sync(dirForTranslations)
-
     _.each(translationsPerLocale, (translations, locale) => {
-      const localeModuleSource = '/* eslint quotes: 0 */' + '\n' + 'export default ' + JSON.stringify(translations, null, 2) + '\n'
-      process.stdout.write(`Writing ${locale}.js, ${Object.keys(translations).length} translations...`)
+      const localeModuleSource = [
+        '/* eslint quotes: 0 */',
+        '\n',
+        startModule(),
+        JSON.stringify(translations, null, 2),
+        endModule(),
+        '\n'
+      ].join('')
 
-      fs.writeFileSync(path.join(dirForTranslations, `${locale}.js`), localeModuleSource, 'utf-8', err => {
+      const dir = target
+          .replace(/{locale}/, locale)
+          .replace(/{sheet}/, worksheetName)
+
+      mkdirp.sync(path.dirname(dir))
+
+      process.stdout.write(`Writing ${dir}, ${Object.keys(translations).length} translations...`)
+
+      fs.writeFileSync(path.normalize(dir), localeModuleSource, 'utf-8', err => {
         if (err) console.error(err)
       })
 
       log(' Done!')
     })
 
-    log(`Done downloading translations to ${dirForTranslations} in ${Math.floor(performance.now() - startTime)}ms\n`)
+    log([
+      `Done downloading translations from "${worksheetName}" sheet `,
+      `(${Math.floor(performance.now() - startTime)}ms elapsed since download started)\n`
+    ].join(''))
   }
 
   const getInfoCallback = (err, spreadsheet) => {
@@ -118,4 +133,18 @@ function createTranslationsPerLocale(spreadsheetToken, worksheetName, dirForTran
 
 function log() {
   console.log.apply(console.log, arguments)
+}
+
+function startModule() {
+  switch (moduleType) {
+    case 'AMD': return 'define('
+    case 'ESM': return 'export default '
+  }
+}
+
+function endModule() {
+  switch (moduleType) {
+    case 'AMD': return ')'
+    case 'ESM': return ''
+  }
 }
