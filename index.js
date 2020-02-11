@@ -11,7 +11,7 @@ const { token, target, sheets, moduleType } = require('./options')
 
 const worksheetNames = sheets.split(',')
 worksheetNames
-    .forEach(worksheetName => createTranslationsPerLocale(token, worksheetName, target))
+  .forEach(worksheetName => createTranslationsPerLocale(token, worksheetName, target))
 
 function createTranslationsPerLocale(spreadsheetToken, worksheetName, target) {
   const sheet = new GoogleSpreadsheet(spreadsheetToken)
@@ -37,11 +37,11 @@ function createTranslationsPerLocale(spreadsheetToken, worksheetName, target) {
       if (cell.value === '') return properties
 
       properties[cell[colProp]] = cell.value
-          .toLowerCase()
-          .replace(/[- ]/ig, ' ')
-          .split(' ')
-          .map((val, index) => index ? val.charAt(0).toUpperCase() + val.slice(1) : val)
-          .join('')
+        .toLowerCase()
+        .replace(/[- ]/ig, ' ')
+        .split(' ')
+        .map((val, index) => index ? val.charAt(0).toUpperCase() + val.slice(1) : val)
+        .join('')
 
       return properties
     }, {})
@@ -75,13 +75,13 @@ function createTranslationsPerLocale(spreadsheetToken, worksheetName, target) {
     })
 
     const allLocalesFromSheet = _.chain(finalList)
-        .reduce((memo, el) => {
-          const rowLocales = _.chain(el).keys().without('key').value()
-          return memo.concat(rowLocales)
-        }, [])
-        .uniq()
-        .filter(locale => locale !== 'undefined')
-        .value()
+      .reduce((memo, el) => {
+        const rowLocales = _.chain(el).keys().without('key').value()
+        return memo.concat(rowLocales)
+      }, [])
+      .uniq()
+      .filter(locale => locale !== 'undefined')
+      .value()
 
     const translationsPerLocale = {}
     allLocalesFromSheet.forEach(locale => {
@@ -103,8 +103,8 @@ function createTranslationsPerLocale(spreadsheetToken, worksheetName, target) {
       ].join('')
 
       const dir = target
-          .replace(/{locale}/, locale)
-          .replace(/{sheet}/, worksheetName)
+        .replace(/{locale}/, locale)
+        .replace(/{sheet}/, worksheetName)
 
       mkdirp.sync(path.dirname(dir))
 
