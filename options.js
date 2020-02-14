@@ -12,7 +12,8 @@ module.exports = yargs
   .option('sheets', {
     demandOption: true,
     describe:     'coma-separated list of sheets to download',
-    type:         'string'
+    type:         'string',
+    coerce:       arg => arg.split(',')
   })
   .option('target', {
     demandOption: true,
