@@ -22,3 +22,5 @@ jobs:
     - run: npm test
       env:
         CI: true
+        SERVICE_ACCOUNT_PRIVATE_KEY: ${{secrets.service_account_private_key}}
+        SERVICE_ACCOUNT_CLIENT_EMAIL: ${{secrets.service_account_client_email}}
