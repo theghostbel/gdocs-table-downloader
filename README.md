@@ -1,17 +1,8 @@
-# 📄➡📁 gdocs-table-downloader (_GTD_)
 
-Download your translations from Google Spreadsheet. Very popular library to support a workflow 
-when you store your translations in Google Spreadsheets. <abbr title="gdocs-table-downloader">GTD</abbr> 
-downloads translations for you, considering **your** files structure.
 
-In other words, having a [spreadsheet](/docs/spreadsheet-window.png) like this:
-![Source table](/docs/spreadsheet-window-thumb.png) 
-You can get the [result file](/docs/result-file-esm-example.png) like this:
-![Result file](/docs/result-file-esm-example.png) 
+# 🖹👉📁 gdocs-table-downloader
 
-Please, take a look at the [example Google Spreadsheet](https://docs.google.com/spreadsheets/d/1oFig-VwfFKP3BLsW4ZgLiw5ftAfcD4jpcUwmXBdhCPU) 
-file. [GTD CI (Github Actions)](https://github.com/theghostbel/gdocs-table-downloader/actions) use this file not only 
-to ensure that the unit tests are passing, but also to ensure that integration with Google Sheets API is in a shape.
+Download your translations from Google Spreadsheet.
 
 ## 📛 Our badges
 [![Node.js CI](https://github.com/theghostbel/gdocs-table-downloader/workflows/Node.js%20CI/badge.svg)](https://github.com/theghostbel/gdocs-table-downloader/actions)
