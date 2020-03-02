@@ -5,8 +5,11 @@ when you store your translations in Google Spreadsheets. <abbr title="gdocs-tabl
 downloads translations for you, considering **your** files structure.
 
 In other words, having a [spreadsheet](/docs/spreadsheet-window.png) like this:
+
 ![Source table](/docs/spreadsheet-window-thumb.png) 
+
 You can get the [result file](/docs/result-file-esm-example.png) like this:
+
 ![Result file](/docs/result-file-esm-example.png) 
 
 Please, take a look at the [example Google Spreadsheet](https://docs.google.com/spreadsheets/d/1oFig-VwfFKP3BLsW4ZgLiw5ftAfcD4jpcUwmXBdhCPU) 
