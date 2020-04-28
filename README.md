@@ -1,19 +1,19 @@
 # 📄➡📁 gdocs-table-downloader (_GTD_)
 
-Download your translations from Google Spreadsheet. Very popular library to support a workflow 
-when you store your translations in Google Spreadsheets. <abbr title="gdocs-table-downloader">GTD</abbr> 
+Download your translations from Google Spreadsheet. Very popular library to support a workflow
+when you store your translations in Google Spreadsheets. <abbr title="gdocs-table-downloader">GTD</abbr>
 downloads translations for you, considering **your** files structure.
 
 In other words, having a [spreadsheet](/docs/spreadsheet-window.png) like this:
 
-![Source table](/docs/spreadsheet-window-thumb.png) 
+![Source table](/docs/spreadsheet-window-thumb.png)
 
 You can get the [result file](/docs/result-file-esm-example.png) like this:
 
-![Result file](/docs/result-file-esm-example.png) 
+![Result file](/docs/result-file-esm-example.png)
 
-Please, take a look at the [example Google Spreadsheet](https://docs.google.com/spreadsheets/d/1oFig-VwfFKP3BLsW4ZgLiw5ftAfcD4jpcUwmXBdhCPU) 
-file. [GTD CI (Github Actions)](https://github.com/theghostbel/gdocs-table-downloader/actions) use this file not only 
+Please, take a look at the [example Google Spreadsheet](https://docs.google.com/spreadsheets/d/1oFig-VwfFKP3BLsW4ZgLiw5ftAfcD4jpcUwmXBdhCPU)
+file. [GTD CI (Github Actions)](https://github.com/theghostbel/gdocs-table-downloader/actions) use this file not only
 to ensure that the unit tests are passing, but also to ensure that integration with Google Sheets API is in a shape.
 
 ## 📛 Our badges
@@ -21,6 +21,7 @@ to ensure that the unit tests are passing, but also to ensure that integration w
 [![npm version](https://badge.fury.io/js/gdocs-table-downloader.svg)](https://www.npmjs.com/package/gdocs-table-downloader)
 [![dependencies](https://david-dm.org/theghostbel/gdocs-table-downloader.svg)](https://github.com/theghostbel/gdocs-table-downloader/blob/master/package.json)
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/theghostbel/gdocs-table-downloader)
+[![Circle CI approves master branch](https://circleci.com/gh/theghostbel/gdocs-table-downloader/tree/master.svg?style=shield)]
 
 ## 🆘 How to use?
 
