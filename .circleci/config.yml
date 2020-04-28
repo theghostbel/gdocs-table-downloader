@@ -11,7 +11,7 @@ jobs:
           steps:
             - run:
                 name: "Setup custom ENV variables"
-                command: echo "export SERVICE_ACCOUNT_PRIVATE_KEY=$(echo $SERVICE_ACCOUNT_PRIVATE_KEY_BASE64 | base64 -d)" >> $BASH_ENV
+                command: echo 'export SERVICE_ACCOUNT_PRIVATE_KEY="$(echo $SERVICE_ACCOUNT_PRIVATE_KEY_BASE64 | base64 -d)"' >> $BASH_ENV
             - run: npm install
             - run: npm test
 workflows:
