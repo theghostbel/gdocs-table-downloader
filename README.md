@@ -21,7 +21,7 @@ to ensure that the unit tests are passing, but also to ensure that integration w
 [![npm version](https://badge.fury.io/js/gdocs-table-downloader.svg)](https://www.npmjs.com/package/gdocs-table-downloader)
 [![dependencies](https://david-dm.org/theghostbel/gdocs-table-downloader.svg)](https://github.com/theghostbel/gdocs-table-downloader/blob/master/package.json)
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/theghostbel/gdocs-table-downloader)
-[![Circle CI approves master branch](https://circleci.com/gh/theghostbel/gdocs-table-downloader/tree/master.svg?style=shield)]
+![Circle CI approves master branch](https://circleci.com/gh/theghostbel/gdocs-table-downloader/tree/master.svg?style=shield)
 
 ## 🆘 How to use?
 
