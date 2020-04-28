@@ -1,7 +1,5 @@
 module.exports = {
   getGoogleAuthCredentials: () => {
-    console.log('getGoogleAuthCredentials')
-    console.log(process.env)
     return {
       private_key:  process.env.SERVICE_ACCOUNT_PRIVATE_KEY,
       client_email: process.env.SERVICE_ACCOUNT_CLIENT_EMAIL,
