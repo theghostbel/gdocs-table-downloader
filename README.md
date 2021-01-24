@@ -99,6 +99,5 @@ Every cell value goes through this function and the return value is stored to a 
 If you don't specify `getValueMapper`, the default function from `customOptions.default.js`
 would be used: it changes "undefined" values to empty strings.
 
-
 ## License
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftheghostbel%2Fgdocs-table-downloader.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftheghostbel%2Fgdocs-table-downloader?ref=badge_large)
