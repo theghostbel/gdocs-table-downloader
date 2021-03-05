@@ -1,8 +1,8 @@
 module.exports = {
   getGoogleAuthCredentials: () => {
     return {
-      private_key:  process.env.SERVICE_ACCOUNT_PRIVATE_KEY,
-      client_email: process.env.SERVICE_ACCOUNT_CLIENT_EMAIL,
+      private_key:  process.env.SERVICE_ACCOUNT_PRIVATE_KEY || '',
+      client_email: process.env.SERVICE_ACCOUNT_CLIENT_EMAIL || ''
     }
     /* You can hardcode these values if your policies allow to store secrets in repo:
        return {
