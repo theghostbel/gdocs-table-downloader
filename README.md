@@ -2,7 +2,7 @@
 
 Download your translations from Google Spreadsheet. Very popular library to support a workflow
 when you store your translations in Google Spreadsheets. <abbr title="gdocs-table-downloader">GTD</abbr>
-downloads translations for you, considering **your** files structure.
+downloads translations for you, considering **your** file structure.
 
 In other words, having a [spreadsheet](/docs/spreadsheet-window.png) like this:
 
@@ -14,7 +14,7 @@ You can get the [result file](/docs/result-file-esm-example.png) like this:
 
 Please, take a look at the [example Google Spreadsheet](https://docs.google.com/spreadsheets/d/1oFig-VwfFKP3BLsW4ZgLiw5ftAfcD4jpcUwmXBdhCPU)
 file. [GTD CI (Github Actions)](https://github.com/theghostbel/gdocs-table-downloader/actions) use this file not only
-to ensure that the unit tests are passing, but also to ensure that integration with Google Sheets API is in a shape.
+to ensure that the unit tests are passing but also to ensure that integration with Google Sheets API is in a shape.
 
 ## 📛 Our badges
 [![Node.js CI](https://github.com/theghostbel/gdocs-table-downloader/workflows/Node.js%20CI/badge.svg)](https://github.com/theghostbel/gdocs-table-downloader/actions)
@@ -31,13 +31,17 @@ to ensure that the unit tests are passing, but also to ensure that integration w
 npm i gdocs-table-downloader -g
 ```
 2. Set your Google Secrets to `options.js` (see `customOptions.default.js` for example)
-3. Run it
+3. Prepare your Google Spreadsheet: 
+  a. create a service account in Google Console
+  b. add it to the list of granted users (it's enough to allow only read access)
+5. Run it:
 ```
 gdocs-table-downloader --token XXX --sheets one,two --customOptions ./options.js --moduleType ESM --target ./out/{sheet}.{locale}.js
 ```
+The token can be taken from the URL. The example spreadsheet `https://docs.google.com/spreadsheets/d/1oFig-VwfFKP3BLsW4ZgLiw5ftAfcD4jpcUwmXBdhCPU/edit#gid=0` has token `1oFig-VwfFKP3BLsW4ZgLiw5ftAfcD4jpcUwmXBdhCPU`
 
 If your Google Spreadsheet had sheets `one` and `two`, each having, for example,
-`en` and `de` locales, you should get next file structure:
+`en` and `de` locales, you should get the next file structure:
 ```
 folder-where-you-ran-this-script/
 └─ out/
@@ -50,7 +54,7 @@ folder-where-you-ran-this-script/
 # ⚙️ Options
 
 See `options.js`, it's `yargs` config. Also, if you run this script and
-forgetting to mention some required options, you would get a description of
+forgot to mention some required options, you would get a description of
 what you've missed.
 
 ## 📦 What is `moduleType`?
@@ -80,7 +84,7 @@ export default {
 
 Google Sheets API requires any kind of authentication since v4.
 `gdocs-table-downloader` is limited to the "service account" type.
-You should create such account in Google Console and then you have two options:
+You should create such an account in Google Console and then you have two options:
 
 1. Put `private_key` and `client_email` directly to a file specified by `--customOptions` param. See `customOptions.default.js` for example.
 2. Put `private_key` and `client_email` to ENV and read them from `process.env`
@@ -89,12 +93,14 @@ Frankly, you're not restricted to only these two methods. You can invent any
 type of "secrets storing", just ensure that `getGoogleAuthCredentials()` returns
 an object with two properties: `private_key` and `client_email`.
 
+P.S. Read an [article on how to store multiline secrets in Circle CI|https://medium.com/@nemiga/multiline-env-secrets-in-circle-ci-ac234c075911]
+
 ## 🛃 Custom value mappings
 
 If you need to perform some custom mapping to values in cells before they are downloaded,
 you can specify `getValueMapper(rawCellValue)` function in `--customOptions` file.
 
-Every cell value goes through this function and the return value is stored to a result file.
+Every cell value goes through this function and the return value is stored in a result file.
 
 If you don't specify `getValueMapper`, the default function from `customOptions.default.js`
 would be used: it changes "undefined" values to empty strings.
