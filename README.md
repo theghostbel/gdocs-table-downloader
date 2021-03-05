@@ -33,7 +33,9 @@ npm i gdocs-table-downloader -g
 2. Set your Google Secrets to `options.js` (see `customOptions.default.js` for example)
 3. Prepare your Google Spreadsheet: 
   a. create a service account in Google Console
+  ![Service accounts](/docs/gdocs-service-account-list.png)
   b. add it to the list of granted users (it's enough to allow only read access)
+  ![Share popup](/docs/gdocs-share.png)
 5. Run it:
 ```
 gdocs-table-downloader --token XXX --sheets one,two --customOptions ./options.js --moduleType ESM --target ./out/{sheet}.{locale}.js
