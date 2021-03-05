@@ -20,6 +20,16 @@ const { token, target, sheets, moduleType, customOptions } = require('./options'
 
 async function loadTranslations({ getGoogleAuthCredentials, getValueMapper }) {
   const doc = new GoogleSpreadsheet(token)
+  const googleAuthCredentials = getGoogleAuthCredentials()
+
+  if (!googleAuthCredentials || Object.values(googleAuthCredentials).join('').length === 0) {
+    throw Error(
+      'Google Auth Credentials are empty, function getGoogleAuthCredentials() from --customOptions file '
+      + 'should return object with "private_key" and "client_email".'
+      + `Instead, received: ${JSON.stringify(googleAuthCredentials, null, 2)}`
+    )
+  }
+
   await doc.useServiceAccountAuth(getGoogleAuthCredentials())
   await doc.loadInfo()
 

@@ -10,18 +10,18 @@ module.exports = yargs
     'If your sheets "my_sheet" contained "en" translations, you should see your files in src/l10n/my_sheet/en.js')
   .option('token', {
     demandOption: true,
-    describe:     'document token (can be found in url)',
+    describe:     'Document token (can be found in the URL)',
     type:         'string'
   })
   .option('sheets', {
     demandOption: true,
-    describe:     'coma-separated list of sheets to download',
+    describe:     'Coma-separated list of sheets to download',
     type:         'string',
     coerce:       arg => arg.split(',')
   })
   .option('target', {
     demandOption: true,
-    describe:     'path where to store downloaded table sheets, use {locale} and {sheet} variables',
+    describe:     'Path where to store downloaded table sheets, use {locale} and {sheet} variables',
     type:         'string'
   })
   .option('moduleType', {
