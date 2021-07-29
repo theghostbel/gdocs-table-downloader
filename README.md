@@ -27,19 +27,20 @@ to ensure that the unit tests are passing but also to ensure that integration wi
 ## 🆘 How to use?
 
 1. Install the package
-```
-npm i gdocs-table-downloader -g
-```
+    ```
+    npm i gdocs-table-downloader -g
+    ```
 2. Set your Google Secrets to `options.js` (see `customOptions.default.js` for example)
-3. Prepare your Google Spreadsheet: 
-  a. create a service account in Google Console
-  ![Service accounts](/docs/gdocs-service-account-list.png)
-  b. add it to the list of granted users (it's enough to allow only read access)
-  ![Share popup](/docs/gdocs-share.png)
-5. Run it:
-```
-gdocs-table-downloader --token XXX --sheets one,two --customOptions ./options.js --moduleType ESM --target ./out/{sheet}.{locale}.js
-```
+3. Prepare your Google Spreadsheet:
+    1. create a service account in Google Console
+    ![Service accounts](/docs/gdocs-service-account-list.png)
+    2. add it to the list of granted users (it's enough to allow only read access)
+    ![Share popup](/docs/gdocs-share.png)
+4. Run it:
+    ```
+    gdocs-table-downloader --token XXX --sheets one,two --customOptions ./options.js --moduleType ESM --target ./out/{sheet}.{locale}.js
+    ```
+
 The token can be taken from the URL. The example spreadsheet `https://docs.google.com/spreadsheets/d/1oFig-VwfFKP3BLsW4ZgLiw5ftAfcD4jpcUwmXBdhCPU/edit#gid=0` has token `1oFig-VwfFKP3BLsW4ZgLiw5ftAfcD4jpcUwmXBdhCPU`
 
 If your Google Spreadsheet had sheets `one` and `two`, each having, for example,
@@ -86,7 +87,7 @@ export default {
 
 Google Sheets API requires any kind of authentication since v4.
 `gdocs-table-downloader` is limited to the "service account" type.
-You should create such an account in Google Console and then you have two options:
+You should create such account in Google Console and then you have two options:
 
 1. Put `private_key` and `client_email` directly to a file specified by `--customOptions` param. See `customOptions.default.js` for example.
 2. Put `private_key` and `client_email` to ENV and read them from `process.env`
@@ -95,14 +96,14 @@ Frankly, you're not restricted to only these two methods. You can invent any
 type of "secrets storing", just ensure that `getGoogleAuthCredentials()` returns
 an object with two properties: `private_key` and `client_email`.
 
-P.S. Read an [article on how to store multiline secrets in Circle CI|https://medium.com/@nemiga/multiline-env-secrets-in-circle-ci-ac234c075911]
+P.S. Read an [article on how to store multiline secrets in Circle CI](https://medium.com/@nemiga/multiline-env-secrets-in-circle-ci-ac234c075911)
 
 ## 🛃 Custom value mappings
 
-If you need to perform some custom mapping to values in cells before they are downloaded,
+If you need to perform some custom mapping for cell values before they are downloaded,
 you can specify `getValueMapper(rawCellValue)` function in `--customOptions` file.
 
-Every cell value goes through this function and the return value is stored in a result file.
+Every cell value goes through this function and the returned value is stored in a result file.
 
 If you don't specify `getValueMapper`, the default function from `customOptions.default.js`
 would be used: it changes "undefined" values to empty strings.
