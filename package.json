@@ -1,7 +1,7 @@
 {
   "name": "gdocs-table-downloader",
   "version": "0.0.4",
-  "description": "",
+  "description": "Download your translations from Google Spreadsheet. Keep your translations in Google Spreadsheet in sync with your project files.",
   "main": "index.js",
   "scripts": {
     "download-example": "node index.js --token 1oFig-VwfFKP3BLsW4ZgLiw5ftAfcD4jpcUwmXBdhCPU --sheets sheet_first,SECOND_SHEET --customOptions ./test/customOptions.js",
@@ -14,13 +14,13 @@
     "type": "git",
     "url": "git+https://github.com/theghostbel/gdocs-table-downloader.git"
   },
-  "keywords": [],
+  "keywords": ["Google Spreadsheet", "translations", "internationalization"],
   "author": "1D-mhKGw65ZijuwaUTBkkyPG6TrdWnXiPx6eiTe4pjIE",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/theghostbel/gdocs-table-downloader/issues"
   },
-  "homepage": "https://github.com/theghostbel/gdocs-table-downloader#readme",
+  "homepage": "https://theghostbel.github.io/gdocs-table-downloader/",
   "dependencies": {
     "google-spreadsheet": "3.1.15",
     "mkdirp": "1.0.3",
