@@ -6,7 +6,7 @@ const mkdirp = require('mkdirp')
 const { GoogleSpreadsheet } = require('google-spreadsheet')
 const path = require('path')
 
-const { token, target, sheets, moduleType, customOptions } = require('./options')
+const { token, target, sheets, moduleType, customOptions, fixEmptyKeyCell, logLevel } = require('./options')
 
 ;(async() => {
   const allSheetsWithTranslations = await loadTranslations(customOptions)
@@ -47,7 +47,28 @@ async function loadTranslations({ getGoogleAuthCredentials, getValueMapper }) {
   async function getSheetTranslations(sheet) {
     const rows = await sheet.getRows()
 
-    await sheet.setHeaderRow(['key', ...sheet.headerValues.slice(1)])
+    if (!sheet.headerValues[0]) {
+      log(`The first cell in the header row on sheet "${sheet.title}" is empty. `)
+      if (fixEmptyKeyCell) {
+        process.stdout.write(`Trying to put "key" in it... `)
+        try {
+          await sheet.setHeaderRow(['key', ...sheet.headerValues.slice(1)])
+          log('Done!')
+        } catch (e) {
+          console.error(`Failed! Current header row is: ${JSON.stringify(sheet.headerValues)}`)
+          console.error(`☢ Check sheet "${sheet.title}" to have some value in the first cell. Sheet data can't be fetched.`)
+          if (logLevel === 'debug') {
+            console.error(e)
+          } else {
+            console.error('Run with --logLevel=debug to see the exception.')
+          }
+        }
+      } else {
+        console.error(`☢ Check sheet "${sheet.title}" to have some value in the first cell.`)
+        console.error(`--fixEmptyKeyCell set to "false", skipped the fix. Sheet data can't be fetched.`)
+      }
+    }
+
     const [key, ...locales] = sheet.headerValues
 
     return locales.reduce((acc, locale) => ({
@@ -86,7 +107,9 @@ function saveTranslationsToFiles(allSheetsWithTranslations) {
 
           mkdirp.sync(path.dirname(dir))
 
-          process.stdout.write(`Writing ${dir}, ${Object.keys(localeTranslations).length} translations...`)
+          const translationsCount = Object.keys(localeTranslations).length
+          const emptyWarning = translationsCount === 0 ? '☢ ' : ''
+          process.stdout.write(`${emptyWarning}Writing ${dir}, ${translationsCount} translations...`)
 
           fs.writeFileSync(path.normalize(dir), localeModuleSource, 'utf-8', err => {
             if (err) console.error(err)
