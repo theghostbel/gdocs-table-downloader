@@ -9,7 +9,7 @@ const path = require('path')
 const { token, target, sheets, moduleType, customOptions } = require('./options')
 
 ;(async() => {
-  const allSheetsWithTranslations = await loadTranslations(customOptions)
+  const allSheetsWithTranslations = await loadTranslations(customOptions);
   saveTranslationsToFiles(allSheetsWithTranslations)
 
   log([
@@ -46,8 +46,6 @@ async function loadTranslations({ getGoogleAuthCredentials, getValueMapper }) {
 
   async function getSheetTranslations(sheet) {
     const rows = await sheet.getRows()
-
-    await sheet.setHeaderRow(['key', ...sheet.headerValues.slice(1)])
     const [key, ...locales] = sheet.headerValues
 
     return locales.reduce((acc, locale) => ({
