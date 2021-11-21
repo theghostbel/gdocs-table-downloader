@@ -14,7 +14,11 @@
     "type": "git",
     "url": "git+https://github.com/theghostbel/gdocs-table-downloader.git"
   },
-  "keywords": ["Google Spreadsheet", "translations", "internationalization"],
+  "keywords": [
+    "Google Spreadsheet",
+    "translations",
+    "internationalization"
+  ],
   "author": "1D-mhKGw65ZijuwaUTBkkyPG6TrdWnXiPx6eiTe4pjIE",
   "license": "ISC",
   "bugs": {
