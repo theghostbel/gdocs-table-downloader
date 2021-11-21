@@ -93,7 +93,7 @@ function saveTranslationsToFiles(allSheetsWithTranslations) {
         })
     })
 
-  function eslintQuotes(moduleType) {
+  function eslintQuotes() {
     switch (moduleType) {
       case 'AMD':
       case 'ESM':
