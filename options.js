@@ -27,7 +27,7 @@ module.exports = yargs
   .option('moduleType', {
     demandOption: true,
     describe:     'Type of module system used in downloaded table sheets',
-    choices:      ['AMD', 'ESM'],
+    choices:      ['AMD', 'ESM', 'JSON'],
     type:         'string'
   })
   .option('customOptions', {
