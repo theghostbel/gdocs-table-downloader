@@ -73,7 +73,8 @@ function saveTranslationsToFiles(allSheetsWithTranslations) {
             eslintQuotes(),
             beginModule(),
             JSON.stringify(localeTranslations, null, 2),
-            endModule()
+            endModule(),
+            '\n'
           ].join('')
 
           const dir = target
