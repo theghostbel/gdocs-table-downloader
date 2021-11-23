@@ -7,7 +7,7 @@ const TRIGGER_DEFAULT_VALUE_FOR_CUSTOM_OPTIONS = 'non-existing-value-just-to-tri
 module.exports = yargs
   .example('$0 --token XYZ --target src/l10n/{sheet}/{locale}.js --moduleType AMD --sheets my_sheet,other_sheet',
     'download sheets "my_sheet" and "other_sheet" from document with token "XYZ" using AMD module system. ' +
-    'If your sheets "my_sheet" contained "en" translations, you should see your files in src/l10n/my_sheet/en.js')
+    'If your sheet "my_sheet" contained "en" translations, you should see them in src/l10n/my_sheet/en.js')
   .option('token', {
     demandOption: true,
     describe:     'Document token (can be found in the URL)',
