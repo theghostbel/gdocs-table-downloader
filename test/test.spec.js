@@ -31,3 +31,19 @@ test('creates same files as expected using ESM (ECMAScript module syntax)', () =
   }
   expect(actual).toStrictEqual(expected)
 }, 10000)
+
+test('creates same files as expected using JSON', () => {
+  const actual = {
+    firstSheetEn:  fs.readFileSync('test/actual/json/sheet_first.en.json', 'utf8'),
+    firstSheetRu:  fs.readFileSync('test/actual/json/sheet_first.ru.json', 'utf8'),
+    secondSheetEn: fs.readFileSync('test/actual/json/SECOND_SHEET.en.json', 'utf8'),
+    secondSheetUa: fs.readFileSync('test/actual/json/SECOND_SHEET.ua.json', 'utf8'),
+  }
+  const expected = {
+    firstSheetEn:  fs.readFileSync('test/expected/json/sheet_first.en.json', 'utf8'),
+    firstSheetRu:  fs.readFileSync('test/expected/json/sheet_first.ru.json', 'utf8'),
+    secondSheetEn: fs.readFileSync('test/expected/json/SECOND_SHEET.en.json', 'utf8'),
+    secondSheetUa: fs.readFileSync('test/expected/json/SECOND_SHEET.ua.json', 'utf8'),
+  }
+  expect(actual).toStrictEqual(expected)
+}, 10000)
