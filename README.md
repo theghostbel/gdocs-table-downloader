@@ -64,7 +64,7 @@ what you've missed.
 
 ## 📦 What is `moduleType`?
 
-Currently, `gdocs-table-downloader` supports two types of modules in generated files: AMD and ESM.
+Currently, `gdocs-table-downloader` supports several types of modules in generated files: AMD, ESM, JSON.
 You can observe examples in `test/expected`.
 
 ### AMD (Asynchronous Module Definition)
@@ -81,6 +81,14 @@ define({
 ```js
 /* eslint quotes: 0 */
 export default {
+  "row1": "cellValue"
+}
+```
+
+### JSON
+
+```js
+{
   "row1": "cellValue"
 }
 ```
