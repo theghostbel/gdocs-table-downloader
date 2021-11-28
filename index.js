@@ -45,6 +45,7 @@ async function loadTranslations({ getGoogleAuthCredentials, getValueMapper }) {
   return allSheetsWithTranslations
 
   async function getSheetTranslations(sheet) {
+    await sheet.loadCells()
     const rows = await sheet.getRows()
 
     if (!sheet.headerValues[0]) {
@@ -73,17 +74,22 @@ async function loadTranslations({ getGoogleAuthCredentials, getValueMapper }) {
 
     return locales.reduce((acc, locale) => ({
       ...acc,
-      [locale]: rowsToTranslations(rows, key, locale)
+      [locale]: rowsToTranslations(sheet, rows, locale)
     }), {})
   }
 
-  function rowsToTranslations(rows, key, locale) {
+  function rowsToTranslations(sheet, rows, locale) {
     return rows
-      .filter(row => row[key])
-      .reduce((acc, row) => ({
-        ...acc,
-        [row[key]]: getValueMapper(row[locale])
-      }), {})
+      .reduce((acc, row) => {
+        const key = sheet.getCellByA1(`A${row.rowNumber}`).value
+
+        if (!key) return acc
+
+        return ({
+          ...acc,
+          [key]: getValueMapper(row[locale])
+        })
+      }, {})
   }
 }
 
