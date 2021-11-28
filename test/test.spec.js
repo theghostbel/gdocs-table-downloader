@@ -28,6 +28,19 @@ describe('using ESM (ECMAScript module syntax)', () => {
   assertActualAndExpectedTranslationsAreEqual('esm', files, TIMEOUT)
 })
 
+describe('using JSON (JavaScript Object Notation)', () => {
+  const files = [
+    'sheet_first.en.js',
+    'sheet_first.ru.js',
+    'SECOND_SHEET.en.js',
+    'SECOND_SHEET.ua.js',
+    'corrupted_sheet.en.js',
+    'corrupted_sheet.ua.js'
+  ]
+
+  assertActualAndExpectedTranslationsAreEqual('json', files, TIMEOUT)
+})
+
 function assertActualAndExpectedTranslationsAreEqual(subfolder, files, timeout) {
   it.each(files.map(file => ({
     file

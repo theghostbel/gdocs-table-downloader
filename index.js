@@ -93,9 +93,8 @@ function saveTranslationsToFiles(allSheetsWithTranslations) {
       Object.entries(sheetTranslations)
         .forEach(([locale, localeTranslations]) => {
           const localeModuleSource = [
-            '/* eslint quotes: 0 */',
-            '\n',
-            startModule(),
+            eslintQuotes(),
+            beginModule(),
             JSON.stringify(localeTranslations, null, 2),
             endModule(),
             '\n'
@@ -119,17 +118,31 @@ function saveTranslationsToFiles(allSheetsWithTranslations) {
         })
     })
 
-  function startModule() {
+  function eslintQuotes() {
+    switch (moduleType) {
+      case 'AMD':
+      case 'ESM':
+        return '/* eslint quotes: 0 */\n'
+      case 'JSON':
+        return ''
+    }
+  }
+
+  function beginModule() {
     switch (moduleType) {
       case 'AMD': return 'define('
       case 'ESM': return 'export default '
+      case 'JSON': return ''
     }
   }
 
   function endModule() {
     switch (moduleType) {
-      case 'AMD': return ')'
-      case 'ESM': return ''
+      case 'AMD':
+        return ')'
+      case 'ESM':
+      case 'JSON':
+        return ''
     }
   }
 }
