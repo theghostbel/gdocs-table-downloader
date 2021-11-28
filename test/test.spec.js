@@ -30,12 +30,12 @@ describe('using ESM (ECMAScript module syntax)', () => {
 
 describe('using JSON (JavaScript Object Notation)', () => {
   const files = [
-    'sheet_first.en.js',
-    'sheet_first.ru.js',
-    'SECOND_SHEET.en.js',
-    'SECOND_SHEET.ua.js',
-    'corrupted_sheet.en.js',
-    'corrupted_sheet.ua.js'
+    'sheet_first.en.json',
+    'sheet_first.ru.json',
+    'SECOND_SHEET.en.json',
+    'SECOND_SHEET.ua.json',
+    'corrupted_sheet.en.json',
+    'corrupted_sheet.ua.json'
   ]
 
   assertActualAndExpectedTranslationsAreEqual('json', files, TIMEOUT)
