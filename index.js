@@ -6,7 +6,7 @@ const mkdirp = require('mkdirp')
 const { GoogleSpreadsheet } = require('google-spreadsheet')
 const path = require('path')
 
-const { token, target, sheets, moduleType, customOptions, fixEmptyKeyCell, logLevel } = require('./options')
+const { token, target, sheets, moduleType, customOptions } = require('./options')
 
 ;(async() => {
   const allSheetsWithTranslations = await loadTranslations(customOptions)
@@ -45,8 +45,8 @@ async function loadTranslations({ getGoogleAuthCredentials, getValueMapper }) {
   return allSheetsWithTranslations
 
   async function getSheetTranslations(sheet) {
-    await sheet.loadCells()
     const rows = await sheet.getRows()
+    await sheet.loadCells(`A1:A${rows.length + 1}`)
 
     const [, ...locales] = sheet.headerValues
 
