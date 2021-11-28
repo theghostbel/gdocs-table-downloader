@@ -30,13 +30,6 @@ module.exports = yargs
     choices:      ['AMD', 'ESM', 'JSON'],
     type:         'string'
   })
-  .option('fixEmptyKeyCell', {
-    default:      true,
-    demandOption: false,
-    describe:     'Set to "false" if you do not want to put "key" value to the first cell when it is empty. ' +
-      'GoogleSpreadsheet API can not return column data if header cell is empty.',
-    type:         'boolean'
-  })
   .option('customOptions', {
     default:      TRIGGER_DEFAULT_VALUE_FOR_CUSTOM_OPTIONS,
     demandOption: false,

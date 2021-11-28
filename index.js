@@ -48,29 +48,7 @@ async function loadTranslations({ getGoogleAuthCredentials, getValueMapper }) {
     await sheet.loadCells()
     const rows = await sheet.getRows()
 
-    if (!sheet.headerValues[0]) {
-      log(`The first cell in the header row on sheet "${sheet.title}" is empty. `)
-      if (fixEmptyKeyCell) {
-        process.stdout.write(`Trying to put "key" in it... `)
-        try {
-          await sheet.setHeaderRow(['key', ...sheet.headerValues.slice(1)])
-          log('Done!')
-        } catch (e) {
-          console.error(`Failed! Current header row is: ${JSON.stringify(sheet.headerValues)}`)
-          console.error(`☢ Check sheet "${sheet.title}" to have some value in the first cell. Sheet data can't be fetched.`)
-          if (logLevel === 'debug') {
-            console.error(e)
-          } else {
-            console.error('Run with --logLevel=debug to see the exception.')
-          }
-        }
-      } else {
-        console.error(`☢ Check sheet "${sheet.title}" to have some value in the first cell.`)
-        console.error(`--fixEmptyKeyCell set to "false", skipped the fix. Sheet data can't be fetched.`)
-      }
-    }
-
-    const [key, ...locales] = sheet.headerValues
+    const [, ...locales] = sheet.headerValues
 
     return locales.reduce((acc, locale) => ({
       ...acc,
