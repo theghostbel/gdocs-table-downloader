@@ -52,5 +52,11 @@ module.exports = yargs
       }
     }
   })
+  .option('logLevel', {
+    default:      'info',
+    describe:     'Choose the log level.',
+    choices:      ['info', 'debug', 'none (not supported yet)'],
+    type:         'string'
+  })
   .help()
   .argv

@@ -9,7 +9,7 @@ const path = require('path')
 const { token, target, sheets, moduleType, customOptions } = require('./options')
 
 ;(async() => {
-  const allSheetsWithTranslations = await loadTranslations(customOptions);
+  const allSheetsWithTranslations = await loadTranslations(customOptions)
   saveTranslationsToFiles(allSheetsWithTranslations)
 
   log([
@@ -46,21 +46,28 @@ async function loadTranslations({ getGoogleAuthCredentials, getValueMapper }) {
 
   async function getSheetTranslations(sheet) {
     const rows = await sheet.getRows()
-    const [key, ...locales] = sheet.headerValues
+    await sheet.loadCells(`A1:A${rows.length + 1}`)
+
+    const [, ...locales] = sheet.headerValues
 
     return locales.reduce((acc, locale) => ({
       ...acc,
-      [locale]: rowsToTranslations(rows, key, locale)
+      [locale]: rowsToTranslations(sheet, rows, locale)
     }), {})
   }
 
-  function rowsToTranslations(rows, key, locale) {
+  function rowsToTranslations(sheet, rows, locale) {
     return rows
-      .filter(row => row[key])
-      .reduce((acc, row) => ({
-        ...acc,
-        [row[key]]: getValueMapper(row[locale])
-      }), {})
+      .reduce((acc, row) => {
+        const key = sheet.getCellByA1(`A${row.rowNumber}`).value
+
+        if (!key) return acc
+
+        return ({
+          ...acc,
+          [key]: getValueMapper(row[locale])
+        })
+      }, {})
   }
 }
 
@@ -83,7 +90,9 @@ function saveTranslationsToFiles(allSheetsWithTranslations) {
 
           mkdirp.sync(path.dirname(dir))
 
-          process.stdout.write(`Writing ${dir}, ${Object.keys(localeTranslations).length} translations...`)
+          const translationsCount = Object.keys(localeTranslations).length
+          const emptyWarning = translationsCount === 0 ? '☢ ' : ''
+          process.stdout.write(`${emptyWarning}Writing ${dir}, ${translationsCount} translations...`)
 
           fs.writeFileSync(path.normalize(dir), localeModuleSource, 'utf-8', err => {
             if (err) console.error(err)

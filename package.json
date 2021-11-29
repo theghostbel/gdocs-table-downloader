@@ -4,7 +4,7 @@
   "description": "Download your translations from Google Spreadsheet. Keep your translations in Google Spreadsheet in sync with your project files.",
   "main": "index.js",
   "scripts": {
-    "download-example": "node index.js --token 1oFig-VwfFKP3BLsW4ZgLiw5ftAfcD4jpcUwmXBdhCPU --sheets sheet_first,SECOND_SHEET --customOptions ./test/customOptions.js",
+    "download-example": "node index.js --token 1oFig-VwfFKP3BLsW4ZgLiw5ftAfcD4jpcUwmXBdhCPU --sheets sheet_first,SECOND_SHEET,corrupted_sheet --customOptions ./test/customOptions.js",
     "download-example-amd": "npm run download-example -- --moduleType AMD --target test/actual/amd/{locale}.{sheet}.js",
     "download-example-esm": "npm run download-example -- --moduleType ESM --target test/actual/esm/{sheet}.{locale}.js",
     "download-example-json": "npm run download-example -- --moduleType JSON --target test/actual/json/{sheet}.{locale}.json",
