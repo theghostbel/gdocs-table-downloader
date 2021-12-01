@@ -17,6 +17,9 @@ jobs:
           node-version: 14
       - run: npm ci
       - run: npm test
+        env:
+          SERVICE_ACCOUNT_PRIVATE_KEY: ${{secrets.service_account_private_key}}
+          SERVICE_ACCOUNT_CLIENT_EMAIL: ${{secrets.service_account_client_email}}
 
   publish-npm:
     needs: build
