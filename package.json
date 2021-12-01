@@ -1,6 +1,6 @@
 {
   "name": "gdocs-table-downloader",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Download your translations from Google Spreadsheet. Keep your translations in Google Spreadsheet in sync with your project files.",
   "main": "index.js",
   "scripts": {
