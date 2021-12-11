@@ -65,9 +65,7 @@ async function getSheetsData(sheetsApiClient, auth, spreadsheetId, ranges) {
 }
 
 function convertSheetRowToArray(row) {
-  return row.values
-    .filter(({ formattedValue }) => formattedValue)
-    .map(({ formattedValue }) => formattedValue)
+  return row.values.map(({ formattedValue }) => formattedValue)
 }
 
 function splitRowDataIntoHeaderAndRows(rowData) {
