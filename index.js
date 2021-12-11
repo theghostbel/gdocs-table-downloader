@@ -3,7 +3,7 @@ const startTime = performance.now()
 
 const fs = require('fs')
 const mkdirp = require('mkdirp')
-const { GoogleSpreadsheet } = require('google-spreadsheet')
+const { getSheets } = require('./googleapis-client')
 const path = require('path')
 
 const { token, target, sheets, moduleType, customOptions } = require('./options')
@@ -19,7 +19,6 @@ const { token, target, sheets, moduleType, customOptions } = require('./options'
 })()
 
 async function loadTranslations({ getGoogleAuthCredentials, getValueMapper }) {
-  const doc = new GoogleSpreadsheet(token)
   const googleAuthCredentials = getGoogleAuthCredentials()
 
   if (!googleAuthCredentials || Object.values(googleAuthCredentials).join('').length === 0) {
@@ -30,42 +29,38 @@ async function loadTranslations({ getGoogleAuthCredentials, getValueMapper }) {
     )
   }
 
-  await doc.useServiceAccountAuth(getGoogleAuthCredentials())
-  await doc.loadInfo()
-
-  const sortedSheets = Object.values(doc.sheetsById)
-    .filter(sheet => sheets.includes(sheet.title))
-    .sort((a, b) => sheets.indexOf(a.title) - sheets.indexOf(b.title))
+  const sheetsAsJson = await getSheets({
+    credentials: googleAuthCredentials,
+    spreadsheetId: token,
+    sheetsTitles: sheets
+  })
 
   const allSheetsWithTranslations = {}
-  for (let sheet of sortedSheets) {
-    allSheetsWithTranslations[sheet.title] = await getSheetTranslations(sheet)
+  for (let sheet of sheetsAsJson) {
+    allSheetsWithTranslations[sheet.title] = convertSheetJsonToTranslation(sheet)
   }
 
   return allSheetsWithTranslations
 
-  async function getSheetTranslations(sheet) {
-    const rows = await sheet.getRows()
-    await sheet.loadCells(`A1:A${rows.length + 1}`)
-
-    const [, ...locales] = sheet.headerValues
+  function convertSheetJsonToTranslation(sheet) {
+    const [, ...locales] = sheet.header
 
     return locales.reduce((acc, locale) => ({
       ...acc,
-      [locale]: rowsToTranslations(sheet, rows, locale)
+      [locale]: rowsToTranslations(sheet.rows, sheet.header.indexOf(locale))
     }), {})
   }
 
-  function rowsToTranslations(sheet, rows, locale) {
+  function rowsToTranslations(rows, index) {
     return rows
       .reduce((acc, row) => {
-        const key = sheet.getCellByA1(`A${row.rowNumber}`).value
+        const key = row[0]
 
         if (!key) return acc
 
         return ({
           ...acc,
-          [key]: getValueMapper(row[locale])
+          [key]: getValueMapper(row[index])
         })
       }, {})
   }
@@ -90,6 +85,7 @@ function saveTranslationsToFiles(allSheetsWithTranslations) {
 
           mkdirp.sync(path.dirname(dir))
 
+          // TODO Might be obsolete: empty sheets were removed before
           const translationsCount = Object.keys(localeTranslations).length
           const emptyWarning = translationsCount === 0 ? '☢ ' : ''
           process.stdout.write(`${emptyWarning}Writing ${dir}, ${translationsCount} translations...`)
