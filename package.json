@@ -27,7 +27,7 @@
   },
   "homepage": "https://theghostbel.github.io/gdocs-table-downloader/",
   "dependencies": {
-    "google-spreadsheet": "3.1.15",
+    "googleapis": "92.0.0",
     "mkdirp": "1.0.3",
     "yargs": "17.2.1"
   },
