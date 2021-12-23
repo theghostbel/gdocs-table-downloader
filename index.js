@@ -32,7 +32,7 @@ async function loadTranslations({ getGoogleAuthCredentials, getValueMapper }) {
   const sheetsAsJson = await getSheets({
     credentials: googleAuthCredentials,
     spreadsheetId: token,
-    sheetsTitles: sheets
+    sheetsNames: sheets
   })
 
   const allSheetsWithTranslations = {}
