@@ -9,7 +9,10 @@
     "download-example-esm": "npm run download-example -- --moduleType ESM --target test/actual/esm/{sheet}.{locale}.js",
     "download-example-json": "npm run download-example -- --moduleType JSON --target test/actual/json/{sheet}.{locale}.json",
     "download-example-all": "npm run download-example-amd && npm run download-example-esm && npm run download-example-json",
-    "test": "npm run download-example-all && jest"
+    "test": "npm run download-example-all && jest",
+    "preversion": "npm test",
+    "update-patch": "npm version patch -m \"Upgrade to %s\"",
+    "postversion": "echo Remember to push changes with tags: \"git push --follow-tags\""
   },
   "repository": {
     "type": "git",
