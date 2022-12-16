@@ -17,12 +17,17 @@ module.exports = yargs
     demandOption: true,
     describe:     'Coma-separated list of sheets to download',
     type:         'string',
-    coerce:       arg => arg.split(',')
+    coerce:       arg => arg ? arg.split(',') : arg
   })
   .option('target', {
     demandOption: true,
     describe:     'Path where to store downloaded table sheets, use {locale} and {sheet} variables',
     type:         'string'
+  })
+  .option('muteEslintQuotes', {
+    demandOption: false,
+    describe:     'Whether to remove "eslint quotes: 0" from the top of generated files',
+    type:         'boolean'
   })
   .option('moduleType', {
     demandOption: true,

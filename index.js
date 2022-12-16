@@ -6,7 +6,7 @@ const mkdirp = require('mkdirp')
 const { getSheets } = require('./googleapis-client')
 const path = require('path')
 
-const { token, target, sheets, moduleType, customOptions } = require('./options')
+const { token, target, sheets, moduleType, muteEslintQuotes, customOptions } = require('./options')
 
 ;(async() => {
   const allSheetsWithTranslations = await loadTranslations(customOptions)
@@ -72,7 +72,7 @@ function saveTranslationsToFiles(allSheetsWithTranslations) {
       Object.entries(sheetTranslations)
         .forEach(([locale, localeTranslations]) => {
           const localeModuleSource = [
-            eslintQuotes(),
+            !muteEslintQuotes && eslintQuotes(),
             beginModule(),
             JSON.stringify(localeTranslations, null, 2),
             endModule(),
