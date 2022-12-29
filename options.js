@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const yargs = require('yargs')
 
-const TRIGGER_DEFAULT_VALUE_FOR_CUSTOM_OPTIONS = 'non-existing-value-just-to-trigger-loading-of-default-custom-options'
+const TRIGGER_DEFAULT_VALUE_FOR_PATH_OPTION = 'non-existing-value-to-know-that-path-was-not-given'
 
 module.exports = yargs
   .example('$0 --token XYZ --target src/l10n/{sheet}/{locale}.js --moduleType AMD --sheets my_sheet,other_sheet',
@@ -35,8 +35,25 @@ module.exports = yargs
     choices:      ['AMD', 'ESM', 'JSON'],
     type:         'string'
   })
+  .option('auth', {
+    default:      TRIGGER_DEFAULT_VALUE_FOR_PATH_OPTION,
+    demandOption: false,
+    describe:     'Path to auth.json file that has "private_key" and "client_email" fields. This file can be downloaded from Google Console (see docs).',
+    type:         'string',
+    coerce:        value => {
+      const authPath = path.join(process.cwd(), value)
+      try {
+        fs.accessSync(authPath, fs.constants.R_OK)
+        return require(authPath)
+      } catch (_) {
+        if (value !== TRIGGER_DEFAULT_VALUE_FOR_PATH_OPTION) {
+          console.log(`Error! File "${value}" is not readable.`)
+        }
+      }
+    }
+  })
   .option('customOptions', {
-    default:      TRIGGER_DEFAULT_VALUE_FOR_CUSTOM_OPTIONS,
+    default:      TRIGGER_DEFAULT_VALUE_FOR_PATH_OPTION,
     demandOption: false,
     describe:     'Path to module with custom options',
     type:         'string',
@@ -50,7 +67,7 @@ module.exports = yargs
           ...require(userCustomFnPath)
         }
       } catch (_) {
-        if (pathToCustomOptions !== TRIGGER_DEFAULT_VALUE_FOR_CUSTOM_OPTIONS) {
+        if (pathToCustomOptions !== TRIGGER_DEFAULT_VALUE_FOR_PATH_OPTION) {
           console.log(`Error! Custom options file "${userCustomFnPath}" is not readable, using default options.`)
         }
         return defaultCustomOptions

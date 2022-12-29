@@ -93,16 +93,18 @@ export default {
 }
 ```
 
-## 🙊 What about secrets?
+## 🙊 How to provide credentials to access Google Spreadsheets API?
 
-Google Sheets API requires any kind of authentication since v4.
+Google Sheets API requires authentication since v4.
 `gdocs-table-downloader` is limited to the "service account" type.
-You should create such account in Google Console and then you have two options:
+You should create such account in Google Console, and then you have several options:
 
 1. Put `private_key` and `client_email` directly to a file specified by `--customOptions` param. See `customOptions.default.js` for example.
 2. Put `private_key` and `client_email` to ENV and read them from `process.env`
+3. Provide `--auth ./path-to-auth.json` to enable authentication. This file can be obtained from Google Console. See `auth-example.json` for example.
+   Only `private_key` and `client_email` fields are required.
 
-Frankly, you're not restricted to only these two methods. You can invent any
+Frankly, you're not restricted to only these methods. You can invent any
 type of "secrets storing", just ensure that `getGoogleAuthCredentials()` returns
 an object with two properties: `private_key` and `client_email`.
 
