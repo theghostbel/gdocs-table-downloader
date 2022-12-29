@@ -6,10 +6,10 @@ const mkdirp = require('mkdirp')
 const { getSheets } = require('./googleapis-client')
 const path = require('path')
 
-const { token, target, sheets, moduleType, muteEslintQuotes, customOptions } = require('./options')
+const { token, target, sheets, moduleType, muteEslintQuotes, customOptions, auth } = require('./options')
 
 ;(async() => {
-  const allSheetsWithTranslations = await loadTranslations(customOptions)
+  const allSheetsWithTranslations = await loadTranslations(customOptions, auth)
   saveTranslationsToFiles(allSheetsWithTranslations)
 
   log([
@@ -18,15 +18,33 @@ const { token, target, sheets, moduleType, muteEslintQuotes, customOptions } = r
   ].join(''))
 })()
 
-async function loadTranslations({ getGoogleAuthCredentials, getValueMapper }) {
-  const googleAuthCredentials = getGoogleAuthCredentials()
+async function loadTranslations({ getGoogleAuthCredentials, getValueMapper }, auth) {
+  console.log('auth', auth)
+  let googleAuthCredentials = getGoogleAuthCredentials()
 
-  if (!googleAuthCredentials || Object.values(googleAuthCredentials).join('').length === 0) {
+  // using auth from customOptions.getGoogleAuthCredentials()
+  if (!auth && (!googleAuthCredentials || Object.values(googleAuthCredentials).join('').length === 0)) {
     throw Error(
       'Google Auth Credentials are empty, function getGoogleAuthCredentials() from --customOptions file '
       + 'should return object with "private_key" and "client_email".'
       + `Instead, received: ${JSON.stringify(googleAuthCredentials, null, 2)}`
     )
+  }
+
+  // using auth from auth.json
+  if (auth) {
+    if (!auth.private_key ||!auth.client_email) {
+      throw Error(
+        'Google Auth Credentials are empty, auth option '
+        + 'should be an object with "private_key" and "client_email".'
+        + `Instead, received: ${JSON.stringify(auth, null, 2)}`
+      )
+    }
+
+    googleAuthCredentials = {
+      client_email: auth.client_email,
+      private_key: auth.private_key
+    }
   }
 
   const sheetsAsJson = await getSheets({
