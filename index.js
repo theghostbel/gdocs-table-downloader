@@ -19,7 +19,6 @@ const { token, target, sheets, moduleType, muteEslintQuotes, customOptions, auth
 })()
 
 async function loadTranslations({ getGoogleAuthCredentials, getValueMapper }, auth) {
-  console.log('auth', auth)
   let googleAuthCredentials = getGoogleAuthCredentials()
 
   // using auth from customOptions.getGoogleAuthCredentials()
