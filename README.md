@@ -120,5 +120,14 @@ Every cell value goes through this function and the returned value is stored in 
 If you don't specify `getValueMapper`, the default function from `customOptions.default.js`
 would be used: it changes "undefined" values to empty strings.
 
+## How to release
+
+1. Run locally version update:
+   - `SERVICE_ACCOUNT_PRIVATE_KEY=$(cat pem.txt) SERVICE_ACCOUNT_CLIENT_EMAIL='xxx@email.com' npm run update-patch`
+   - `pem.txt` is a private key frorm Google Console
+2. Push new commit "Update to version x.x.x" together with tags: `git push --follow-tags`
+3. Create release in GitHub
+4. Wait actions to finish
+
 ## License
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftheghostbel%2Fgdocs-table-downloader.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftheghostbel%2Fgdocs-table-downloader?ref=badge_large)
