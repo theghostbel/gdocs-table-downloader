@@ -1,8 +1,7 @@
 module.exports = {
-  getValueMapper: value => {
+  getValueMapper: (value) => {
     if (typeof value === 'undefined') return ''
 
-    return value
-      .replace('{value}', '_replaced_')
-  }
+    return value.replace('{value}', '_replaced_')
+  },
 }
