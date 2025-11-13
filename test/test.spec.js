@@ -9,7 +9,7 @@ describe('using AMD (Asynchronous Module Definition)', () => {
     'en.SECOND_SHEET.js',
     'ua.SECOND_SHEET.js',
     'en.corrupted_sheet.js',
-    'ua.corrupted_sheet.js'
+    'ua.corrupted_sheet.js',
   ]
 
   assertActualAndExpectedTranslationsAreEqual('amd', files, TIMEOUT)
@@ -22,7 +22,7 @@ describe('using ESM (ECMAScript module syntax)', () => {
     'SECOND_SHEET.en.js',
     'SECOND_SHEET.ua.js',
     'corrupted_sheet.en.js',
-    'corrupted_sheet.ua.js'
+    'corrupted_sheet.ua.js',
   ]
 
   assertActualAndExpectedTranslationsAreEqual('esm', files, TIMEOUT)
@@ -35,18 +35,24 @@ describe('using JSON (JavaScript Object Notation)', () => {
     'SECOND_SHEET.en.json',
     'SECOND_SHEET.ua.json',
     'corrupted_sheet.en.json',
-    'corrupted_sheet.ua.json'
+    'corrupted_sheet.ua.json',
   ]
 
   assertActualAndExpectedTranslationsAreEqual('json', files, TIMEOUT)
 })
 
 function assertActualAndExpectedTranslationsAreEqual(subfolder, files, timeout) {
-  it.each(files.map(file => ({
-    file
-  })))(`creates the same file $file as expected`, ({ file}) => {
-    const actual = fs.readFileSync(`test/actual/${subfolder}/${file}`, 'utf8')
-    const expected = fs.readFileSync(`test/expected/${subfolder}/${file}`, 'utf8')
-    expect(actual).toStrictEqual(expected)
-  }, timeout)
+  it.each(
+    files.map((file) => ({
+      file,
+    }))
+  )(
+    `creates the same file $file as expected`,
+    ({ file }) => {
+      const actual = fs.readFileSync(`test/actual/${subfolder}/${file}`, 'utf8')
+      const expected = fs.readFileSync(`test/expected/${subfolder}/${file}`, 'utf8')
+      expect(actual).toStrictEqual(expected)
+    },
+    timeout
+  )
 }

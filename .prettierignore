@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build outputs
+dist/
+build/
+
+# Test outputs and fixtures
+test/actual/
+test/expected/
+coverage/
+
+# Config files
+.git/
+.github/
+.circleci/
+
+# Other
+*.md
+*.yml
+*.yaml
