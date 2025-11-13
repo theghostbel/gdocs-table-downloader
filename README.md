@@ -23,6 +23,7 @@ to ensure that the unit tests are passing but also to ensure that integration wi
 <!-- [![dependencies](https://david-dm.org/theghostbel/gdocs-table-downloader.svg)](https://github.com/theghostbel/gdocs-table-downloader/blob/master/package.json) -->
 [![CodeFactor](https://www.codefactor.io/repository/github/theghostbel/gdocs-table-downloader/badge)](https://www.codefactor.io/repository/github/theghostbel/gdocs-table-downloader)
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/theghostbel/gdocs-table-downloader)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/theghostbel/gdocs-table-downloader/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/theghostbel/gdocs-table-downloader/tree/master)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftheghostbel%2Fgdocs-table-downloader.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftheghostbel%2Fgdocs-table-downloader?ref=badge_shield)
 
 ## 🆘 How to use?
