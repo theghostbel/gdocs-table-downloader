@@ -29,6 +29,9 @@
     "url": "https://github.com/theghostbel/gdocs-table-downloader/issues"
   },
   "homepage": "https://theghostbel.github.io/gdocs-table-downloader/",
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "dependencies": {
     "googleapis": "109.0.1",
     "mkdirp": "1.0.3",
